@@ -12,7 +12,7 @@ nvidia-docker run --rm \
     -v .:/home/$(whoami) \
     -w /home/$(whoami)/ \
     --runtime=nvidia \
-    william/darknet:0.1 \
+    william/darknet:latest \
         darknet train \
             "$1" \
             "$2" \
