@@ -6,28 +6,24 @@ if [ "$1" == "-h" ]; then
 fi
 
 printf "Enter the number of one of the following choices:\n"
-printf "\n\t(1) - darknet53.conv.74 [155 MB]\n"
-printf "\t(2) - yolov3.weights [236 MB]\n"
-printf "\t(3) - yolov3-tiny.weights [34 MB]\n"
-printf "\t(4) - yolov3-spp.weights [240 MB]\n"
-printf "\t(5) - ALL [$((155 + 32 + 240)) MB]\n\n"
+printf "\n\t(1) - yolov3.weights [236 MB]\n"
+printf "\t(2) - yolov3-tiny.weights [34 MB]\n"
+printf "\t(3) - yolov3-spp.weights [240 MB]\n"
+printf "\t(4) - ALL [$((236 + 34 + 240)) MB]\n\n"
 
 read -p ">>> " n
 
 case $n in
     "1")
-        wget -P models/ https://pjreddie.com/media/files/darknet53.conv.74
-        ;;
-    "2")
         wget -P models/ https://pjreddie.com/media/files/yolov3.weights
         ;;
-    "3")
+    "2")
         wget -P models/ https://pjreddie.com/media/files/yolov3-tiny.weights
         ;;
-    "4")
+    "3")
         wget -P models/ https://pjreddie.com/media/files/yolov3-spp.weights
         ;;
-    "5")
+    "4")
         wget -P models/ https://pjreddie.com/media/files/darknet53.conv.74
         wget -P models/ https://pjreddie.com/media/files/yolov3.weights
         wget -P models/ https://pjreddie.com/media/files/yolov3-tiny.weights

@@ -10,7 +10,7 @@
 *.lib
 *.dylib
 mnist/
-data/
+data/*
 caffe/
 grasp/
 images/
@@ -57,3 +57,7 @@ uselib_track
 darknet
 
 models/*
+!models/get_models.sh
+
+weights/*
+!weights/get_pretrained.sh
