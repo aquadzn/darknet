@@ -12,8 +12,16 @@ nvidia-docker run --rm \
     -v .:/home/$(whoami) \
     -w /home/$(whoami)/ \
     --runtime=nvidia \
+    --name train_darknet \
     william/darknet:latest \
-        darknet train \
+        detector train \
             "$1" \
             "$2" \
-            "$3"
+            "$3" \
+            -dont_show \
+            -gpus 1,2
+
+# Example:
+# nvidia-docker run --rm -it -v "$(pwd):/usr/src/app" -w "/usr/src/app" --runtime=nvidia \
+    # --name train_darknet william/darknet:latest \
+    # detector train data/obj.data cfg/customv3-tiny.cfg weights/yolov3-tiny.conv.11 -dont_show -gpus 1,2
