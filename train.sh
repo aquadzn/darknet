@@ -14,6 +14,6 @@ nvidia-docker run --rm \
     --runtime=nvidia \
     william/darknet:0.1 \
         darknet train \
-            data/obj.data \
-            cfg/obj.cfg \
-            weights/obj.weights
+            "$1" \
+            "$2" \
+            "$3"
