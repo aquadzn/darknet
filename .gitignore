@@ -56,4 +56,4 @@ uselib
 uselib_track
 darknet
 
-models/
+models/*
