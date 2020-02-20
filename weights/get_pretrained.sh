@@ -6,7 +6,7 @@ if [ "$1" == "-h" ]; then
 fi
 
 printf "Enter the number of one of the following choices:\n"
-printf "\n\t(1) - darknet53.conv.74 [155 MB]\n"
+printf "\n\t(1) - darknet53.conv.74 (yolov3) [155 MB]\n"
 printf "\t(2) - yolov3-tiny.conv.11 [6 MB]\n"
 printf "\t(3) - csresnext50-panet-spp.conv.112 [133 MB]\n\n"
 
@@ -14,7 +14,7 @@ read -p ">>> " n
 
 case $n in
     "1")
-        wget -P models/ https://pjreddie.com/media/files/darknet53.conv.74
+        wget https://pjreddie.com/media/files/darknet53.conv.74
         ;;
     "2")
         wget --load-cookies /tmp/cookies.txt \

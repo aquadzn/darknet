@@ -1,5 +1,6 @@
 # From https://hub.docker.com/r/alemelis/darknet
 
+# Change 10.1 for 10.0 if specific CUDA version needed
 FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 ARG DEBIAN_FRONTEND=noninteractive
 

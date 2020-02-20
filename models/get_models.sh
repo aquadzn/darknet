@@ -15,19 +15,19 @@ read -p ">>> " n
 
 case $n in
     "1")
-        wget -P models/ https://pjreddie.com/media/files/yolov3.weights
+        wget https://pjreddie.com/media/files/yolov3.weights
         ;;
     "2")
-        wget -P models/ https://pjreddie.com/media/files/yolov3-tiny.weights
+        wget https://pjreddie.com/media/files/yolov3-tiny.weights
         ;;
     "3")
-        wget -P models/ https://pjreddie.com/media/files/yolov3-spp.weights
+        wget https://pjreddie.com/media/files/yolov3-spp.weights
         ;;
     "4")
-        wget -P models/ https://pjreddie.com/media/files/darknet53.conv.74
-        wget -P models/ https://pjreddie.com/media/files/yolov3.weights
-        wget -P models/ https://pjreddie.com/media/files/yolov3-tiny.weights
-        wget -P models/ https://pjreddie.com/media/files/yolov3-spp.weights
+        wget https://pjreddie.com/media/files/darknet53.conv.74
+        wget https://pjreddie.com/media/files/yolov3.weights
+        wget https://pjreddie.com/media/files/yolov3-tiny.weights
+        wget https://pjreddie.com/media/files/yolov3-spp.weights
         ;;
     *)
     printf "\nInvalid choice.\n"
