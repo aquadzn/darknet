@@ -551,6 +551,8 @@ struct layer {
 
     float * mean_gpu;
     float * variance_gpu;
+    float * m_cbn_avg_gpu;
+    float * v_cbn_avg_gpu;
 
     float * rolling_mean_gpu;
     float * rolling_variance_gpu;
@@ -584,6 +586,8 @@ struct layer {
     float * loss_gpu;
     float * delta_gpu;
     float * rand_gpu;
+    float * drop_blocks_scale;
+    float * drop_blocks_scale_gpu;
     float * squared_gpu;
     float * norms_gpu;
 
