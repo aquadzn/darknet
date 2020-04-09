@@ -100,75 +100,19 @@ std::vector<bbox_t> get_3d_coordinates(std::vector<bbox_t> bbox_vect, cv::Mat xy
     return bbox3d_vect;
 }
 
+cv::Mat slMat2cvMat(sl::Mat &input) {
+    int cv_type = -1; // Mapping between MAT_TYPE and CV_TYPE
+    if(input.getDataType() ==
 #ifdef ZED_STEREO_2_COMPAT_MODE
-cv::Mat slMat2cvMat(sl::Mat &input) {
-    // Mapping between MAT_TYPE and CV_TYPE
-    int cv_type = -1;
-    switch (input.getDataType()) {
-    case sl::MAT_TYPE_32F_C1:
-        cv_type = CV_32FC1;
-        break;
-    case sl::MAT_TYPE_32F_C2:
-        cv_type = CV_32FC2;
-        break;
-    case sl::MAT_TYPE_32F_C3:
-        cv_type = CV_32FC3;
-        break;
-    case sl::MAT_TYPE_32F_C4:
-        cv_type = CV_32FC4;
-        break;
-    case sl::MAT_TYPE_8U_C1:
-        cv_type = CV_8UC1;
-        break;
-    case sl::MAT_TYPE_8U_C2:
-        cv_type = CV_8UC2;
-        break;
-    case sl::MAT_TYPE_8U_C3:
-        cv_type = CV_8UC3;
-        break;
-    case sl::MAT_TYPE_8U_C4:
-        cv_type = CV_8UC4;
-        break;
-    default:
-        break;
-    }
-    return cv::Mat(input.getHeight(), input.getWidth(), cv_type, input.getPtr<sl::uchar1>(sl::MEM_CPU));
-}
+        sl::MAT_TYPE_32F_C4
 #else
-cv::Mat slMat2cvMat(sl::Mat &input) {
-    // Mapping between MAT_TYPE and CV_TYPE
-    int cv_type = -1;
-    switch (input.getDataType()) {
-    case sl::MAT_TYPE::F32_C1:
-        cv_type = CV_32FC1;
-        break;
-    case sl::MAT_TYPE::F32_C2:
-        cv_type = CV_32FC2;
-        break;
-    case sl::MAT_TYPE::F32_C3:
-        cv_type = CV_32FC3;
-        break;
-    case sl::MAT_TYPE::F32_C4:
+        sl::MAT_TYPE::F32_C4
+#endif
+        ) {
         cv_type = CV_32FC4;
-        break;
-    case sl::MAT_TYPE::U8_C1:
-        cv_type = CV_8UC1;
-        break;
-    case sl::MAT_TYPE::U8_C2:
-        cv_type = CV_8UC2;
-        break;
-    case sl::MAT_TYPE::U8_C3:
-        cv_type = CV_8UC3;
-        break;
-    case sl::MAT_TYPE::U8_C4:
-        cv_type = CV_8UC4;
-        break;
-    default:
-        break;
-    }
+    } else cv_type = CV_8UC4; // sl::Mat used are either RGBA images or XYZ (4C) point clouds
     return cv::Mat(input.getHeight(), input.getWidth(), cv_type, input.getPtr<sl::uchar1>(sl::MEM::CPU));
 }
-#endif
 
 cv::Mat zed_capture_rgb(sl::Camera &zed) {
     sl::Mat left;
@@ -180,11 +124,13 @@ cv::Mat zed_capture_rgb(sl::Camera &zed) {
 
 cv::Mat zed_capture_3d(sl::Camera &zed) {
     sl::Mat cur_cloud;
+    zed.retrieveMeasure(cur_cloud,
 #ifdef ZED_STEREO_2_COMPAT_MODE
-    zed.retrieveMeasure(cur_cloud, sl::MEASURE_XYZ);
+        sl::MEASURE_XYZ
 #else
-    zed.retrieveMeasure(cur_cloud, sl::MEASURE::XYZ);
+        sl::MEASURE::XYZ
 #endif
+        );
     return slMat2cvMat(cur_cloud).clone();
 }
 
@@ -205,11 +151,13 @@ std::vector<bbox_t> get_3d_coordinates(std::vector<bbox_t> bbox_vect, cv::Mat xy
 #ifndef USE_CMAKE_LIBS
 #pragma comment(lib, "opencv_world" OPENCV_VERSION ".lib")
 #ifdef TRACK_OPTFLOW
+/*
 #pragma comment(lib, "opencv_cudaoptflow" OPENCV_VERSION ".lib")
 #pragma comment(lib, "opencv_cudaimgproc" OPENCV_VERSION ".lib")
 #pragma comment(lib, "opencv_core" OPENCV_VERSION ".lib")
 #pragma comment(lib, "opencv_imgproc" OPENCV_VERSION ".lib")
 #pragma comment(lib, "opencv_highgui" OPENCV_VERSION ".lib")
+*/
 #endif    // TRACK_OPTFLOW
 #endif    // USE_CMAKE_LIBS
 #else     // OpenCV 2.x
@@ -396,7 +344,7 @@ int main(int argc, char *argv[])
     #endif
                 //init_params.sdk_cuda_ctx = (CUcontext)detector.get_cuda_context();
                 init_params.sdk_gpu_id = detector.cur_gpu_id;
-                
+
                 if (filename == "zed_camera" || file_ext == "svo") {
                     std::cout << "ZED 3D Camera " << zed.open(init_params) << std::endl;
                     if (!zed.isOpened()) {
@@ -465,7 +413,7 @@ int main(int argc, char *argv[])
                         if (use_zed_camera) {
                             while (zed.grab() !=
         #ifdef ZED_STEREO_2_COMPAT_MODE
-                                sl::SUCCESS 
+                                sl::SUCCESS
         #else
                                 sl::ERROR_CODE::SUCCESS
         #endif

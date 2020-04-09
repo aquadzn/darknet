@@ -438,8 +438,8 @@ convolutional_layer make_convolutional_layer(int batch, int steps, int h, int w,
 
     // float scale = 1./sqrt(size*size*c);
     float scale = sqrt(2./(size*size*c/groups));
-    if (l.activation == NORM_CHAN_SOFTMAX_MAXVAL) {
-        for (i = 0; i < l.nweights; ++i) l.weights[i] = -10;   // rand_normal();
+    if (l.activation == NORM_CHAN || l.activation == NORM_CHAN_SOFTMAX || l.activation == NORM_CHAN_SOFTMAX_MAXVAL) {
+        for (i = 0; i < l.nweights; ++i) l.weights[i] = 1;   // rand_normal();
     }
     else {
         for (i = 0; i < l.nweights; ++i) l.weights[i] = scale*rand_uniform(-1, 1);   // rand_normal();
@@ -786,7 +786,7 @@ void resize_convolutional_layer(convolutional_layer *l, int w, int h)
 
     if (l->activation == SWISH || l->activation == MISH) l->activation_input = (float*)realloc(l->activation_input, total_batch*l->outputs * sizeof(float));
 #ifdef GPU
-    if (old_w < w || old_h < h) {
+    if (old_w < w || old_h < h || l->dynamic_minibatch) {
         if (l->train) {
             cuda_free(l->delta_gpu);
             l->delta_gpu = cuda_make_array(l->delta, total_batch*l->outputs);
