@@ -3,12 +3,12 @@ import random
 
 
 data = glob.glob('obj/*.jpg')
-
-print(len(data))
+cut = 0.8 * len(data)
 random.shuffle(data)
 
-train = data[:230]
-valid = data[230:]
+
+train = data[:cut]
+valid = data[cut:]
 
 with open('train.txt', 'w') as t:
     for i in train:
@@ -17,4 +17,3 @@ with open('train.txt', 'w') as t:
 with open('valid.txt', 'w') as v:
     for j in valid:
         v.write(f"data/{j}\n")
-
