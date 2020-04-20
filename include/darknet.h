@@ -324,6 +324,7 @@ struct layer {
 
     int onlyforward;
     int stopbackward;
+    int train_only_bn;
     int dont_update;
     int burnin_update;
     int dontload;
@@ -978,6 +979,7 @@ LIB_API void free_layer(layer l);
 // data.c
 LIB_API void free_data(data d);
 LIB_API pthread_t load_data(load_args args);
+LIB_API void free_load_threads(void *ptr);
 LIB_API pthread_t load_data_in_thread(load_args args);
 LIB_API void *load_thread(void *ptr);
 
