@@ -22,7 +22,9 @@
 
 #### How to do custom object detection ?
 
-Change these settings in each .cfg file:
+* Build darknet with `make`
+
+* Make your custom .cfg file with these changes:
 
 ```
 batch=64
@@ -31,3 +33,9 @@ max_batches=classes*2000
 steps=0.8*max_batches,0.9*max_batches
 filters=(classes+5)x3   # filters --> before each yolo layer
 ```
+
+* Download weights/ or models/ with `.sh` scripts
+
+* Place all images and .txt labels in `data/obj`
+
+* Modify `data/obj.data` and `data/obj.names`. Create `train.txt` and `valid.txt` with `data/train_valid_split.py`.

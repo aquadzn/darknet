@@ -60,4 +60,5 @@ models/*
 weights/*
 !weights/get_pretrained.sh
 
-data/obj
+data/obj/*.jpg
+data/obj/*.txt
