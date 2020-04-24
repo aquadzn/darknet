@@ -20,7 +20,7 @@
 | Predict one test image | `nvidia-docker run -it --rm -v "$(pwd):/usr/src/app" -w "/usr/src/app" --runtime=nvidia --name train_darknet_tiny william/darknet detector test data/obj.data cfg/custom/customv3-tiny.cfg backup/customv3-tiny_final.weights samples/test_1.jpg -dont_show` |
 
 
-#### How to do custom object detection ?
+### How to do custom object detection ?
 
 * Build darknet with `make`
 
