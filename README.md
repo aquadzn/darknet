@@ -1,5 +1,5 @@
 # Darknet
-![darknet](https://pjreddie.com/static/img/darknet.png)
+![darknet](https://camo.githubusercontent.com/e69d4118b20a42de4e23b9549f9a6ec6dbbb0814/687474703a2f2f706a7265646469652e636f6d2f6d656469612f66696c65732f6461726b6e65742d626c61636b2d736d616c6c2e706e67)
 
 ---
 
