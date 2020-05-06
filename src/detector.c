@@ -292,10 +292,12 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
         }
 
         if (net.cudnn_half) {
-            if (iteration < net.burn_in * 3) fprintf(stderr, "\n Tensor Cores are disabled until the first %d iterations are reached.", 3 * net.burn_in);
-            else fprintf(stderr, "\n Tensor Cores are used.");
+            if (iteration < net.burn_in * 3) fprintf(stderr, "\n Tensor Cores are disabled until the first %d iterations are reached.\n", 3 * net.burn_in);
+            else fprintf(stderr, "\n Tensor Cores are used.\n");
+            fflush(stderr);
         }
         printf("\n %d: %f, %f avg loss, %f rate, %lf seconds, %d images, %f hours left\n", iteration, loss, avg_loss, get_current_rate(net), (what_time_is_it_now() - time), iteration*imgs, avg_time);
+        fflush(stdout);
 
         int draw_precision = 0;
         if (calc_map && (iteration >= next_map_calc || iteration == net.max_batches)) {
@@ -346,7 +348,7 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
 
             draw_precision = 1;
         }
-        time_remaining = (net.max_batches - iteration)*(what_time_is_it_now() - time + load_time) / 60 / 60;
+        time_remaining = ((net.max_batches - iteration) / ngpus)*(what_time_is_it_now() - time + load_time) / 60 / 60;
         // set initial value, even if resume training from 10000 iteration
         if (avg_time < 0) avg_time = time_remaining;
         else avg_time = alpha_time * time_remaining + (1 -  alpha_time) * avg_time;
